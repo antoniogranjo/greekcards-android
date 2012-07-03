@@ -1,5 +1,7 @@
 package ag.greekcards.db;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,8 +21,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.AndroidRuntimeException;
 
 public class GreekCardsDbHelper extends SQLiteOpenHelper {
+	private Context context;
 	
 	private static final class RowMappers {
 		public static final RowMapper<Sustantive> SUSTANTIVE = new SustantiveRowMapper();
@@ -38,6 +42,7 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	
 	public GreekCardsDbHelper(Context context) {
 		super(context, GreekCardsSQL.DATABASE_NAME, null, GreekCardsSQL.DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
@@ -58,25 +63,37 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	private void createGreekCardsDatabase(SQLiteDatabase db) {
 		createSustantivesTable(db);
 		createSustantiveCategoriesTable(db);
-		loadSustantivesFromFile(db);
-		loadSustantiveCategoriesFromFile(db);
+		loadSustantivesFromFile(context, db);
+		loadSustantiveCategoriesFromFile(context, db);
 	}
 
-	private static void loadSustantivesFromFile(SQLiteDatabase db) {
-		final List<Sustantive> sustantives = IoUtils.map(Sustantives.FILE, LineMappers.SUSTANTIVE);
+	private static void loadSustantivesFromFile(Context context, SQLiteDatabase db) {
+		InputStream is;
+		try {
+			is = context.getAssets().open(Sustantives.FILE);
+		} catch (IOException e) {
+			throw new AndroidRuntimeException(e);
+		}
+		final List<Sustantive> sustantives = IoUtils.map(is, LineMappers.SUSTANTIVE);
 		for (Sustantive s : sustantives) {
 			createSustantive(s, db);
 		}
 	}
 	
-	private void loadSustantiveCategoriesFromFile(SQLiteDatabase db) {
-		final List<SustantiveCategory> sustantiveCategories = IoUtils.map(SustantiveCategories.FILE, LineMappers.SUSTANTIVE_CATEGORY);
+	private static void loadSustantiveCategoriesFromFile(Context context, SQLiteDatabase db) {
+		InputStream is;
+		try {
+			is = context.getAssets().open(SustantiveCategories.FILE);
+		} catch (IOException e) {
+			throw new AndroidRuntimeException(e);
+		}
+		final List<SustantiveCategory> sustantiveCategories = IoUtils.map(is, LineMappers.SUSTANTIVE_CATEGORY);
 		for (SustantiveCategory sc : sustantiveCategories) {
 			createSustantiveCategory(sc, db);
 		}
 	}
 	
-	private void createSustantiveCategory(SustantiveCategory sc, SQLiteDatabase db) {
+	private static void createSustantiveCategory(SustantiveCategory sc, SQLiteDatabase db) {
 		db.insert(SustantiveCategories.TABLE_NAME, null, SustantiveCategories.getInsertContentValues(sc));
 	}
 

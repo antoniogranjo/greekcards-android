@@ -1,10 +1,9 @@
-package ag.greekcards;
+package ag.greekcards.db;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import ag.greekcards.db.GreekCardsDbHelper;
 import ag.greekcards.model.Sustantive;
 import ag.greekcards.model.SustantiveCategory;
 import android.content.Context;
@@ -29,6 +28,8 @@ public class GreekCardsDataSource {
 	}
 
 	public List<SustantiveCategory> findSustantiveCategories() {
-		return dbHelper.findSustantiveCategories();
+		final List<SustantiveCategory> categories = dbHelper.findSustantiveCategories();
+		categories.add(0, SustantiveCategory.CATEGORY_ALL);
+		return categories;
 	}
 }

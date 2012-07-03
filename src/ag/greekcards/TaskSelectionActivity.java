@@ -2,6 +2,7 @@ package ag.greekcards;
 
 import java.util.List;
 
+import ag.greekcards.db.GreekCardsDataSource;
 import ag.greekcards.model.SustantiveCategory;
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,12 +19,17 @@ public class TaskSelectionActivity extends Activity {
         greekCardsDataSource = new GreekCardsDataSource(this);
         
         setContentView(R.layout.activity_task_selection);
-        Spinner sustantiveCategories = (Spinner)findViewById(R.id.sustantiveCategories);
-        final List<SustantiveCategory> sc = greekCardsDataSource.findSustantiveCategories();
+        
+        setupSustantiveCategoriesSpinner();
+    }
+
+	private void setupSustantiveCategoriesSpinner() {
+		Spinner sustantiveCategories = (Spinner)findViewById(R.id.sustantiveCategories);
+		final List<SustantiveCategory> sc = greekCardsDataSource.findSustantiveCategories();
         final ArrayAdapter<SustantiveCategory> adapter = new ArrayAdapter<SustantiveCategory>(this, android.R.layout.simple_spinner_item, sc);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sustantiveCategories.setAdapter(adapter);
-    }
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
