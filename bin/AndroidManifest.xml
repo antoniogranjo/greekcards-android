@@ -12,8 +12,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <provider android:name=".content.SustantiveProvider" android:authorities="ag.greekcards.model.Sustantive" android:exported="false" />
-        
         <activity
             android:name=".TaskSelectionActivity"
             android:label="@string/title_activity_task_selection" >

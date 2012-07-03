@@ -1,0 +1,5 @@
+σπίτι	casa
+αυτοκίνητο	coche
+άνθρωπος hombre
+γυναίκα	mujer
+ευχαριστώ	gracias

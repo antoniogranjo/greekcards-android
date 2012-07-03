@@ -13,4 +13,13 @@
         android:layout_marginTop="30dp"
         android:text="@string/sustantives" />
 
+    <Spinner
+        android:id="@+id/sustantiveCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSustantives"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:prompt="@string/select_category" />
+
 </RelativeLayout>
