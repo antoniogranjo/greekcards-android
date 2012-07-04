@@ -5,7 +5,7 @@
     tools:ignore="NewApi" >
 
     <Button
-        android:id="@+id/btnSustantives"
+        android:id="@+id/sustantivesTranslationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,9 +17,9 @@
         android:id="@+id/sustantiveCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSustantives"
+        android:layout_below="@+id/sustantivesTranslationButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="62dp"
         android:prompt="@string/select_category" />
 
 </RelativeLayout>

@@ -5,5 +5,11 @@
     <string name="title_activity_task_selection">TaskSelectionActivity</string>
     <string name="sustantives">Sustantives</string>
     <string name="select_category">Select a category</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="show_translation">\?</string>
+    <string name="text_not_set">text not set!</string>
+    <string name="next">Siguiente</string>
+    <string name="exit">Salir</string>
+    <string name="title_activity_sustantive_translation">SustantiveTranslationActivity</string>
 
 </resources>
