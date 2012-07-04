@@ -1,10 +1,11 @@
-animales
-partes del cuerpo humano
-colores
-profesiones
-en la calle
-en el restaurante
-en casa
-en el colegio
-en el trabajo
-adjetivos
+1|animales
+2|partes del cuerpo humano
+3|colores
+4|profesiones
+5|en la calle
+6|en el restaurante
+7|en casa
+8|en el colegio
+9|en el trabajo
+10|adjetivos
+11|verbos

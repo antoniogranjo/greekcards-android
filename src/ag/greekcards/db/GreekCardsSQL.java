@@ -34,7 +34,7 @@ public final class GreekCardsSQL {
 		public static final String _DESCRIPTION = "desc";
 		public static final String TABLE_NAME = "sustantive_categories";
 		public static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
-				_ID + " integer primary key autoincrement, " +
+				_ID + " integer primary key, " +
 				_DESCRIPTION + " text not null);";
 		public static final String[] QUERY_COLS = new String[]{_ID, _DESCRIPTION};
 		public static final String FILE = "sustantive_categories.txt";
@@ -43,6 +43,7 @@ public final class GreekCardsSQL {
 
 		public static ContentValues getInsertContentValues(SustantiveCategory sc) {
 			final ContentValues values = new ContentValues();
+			values.put(_ID, sc.getId());
 			values.put(_DESCRIPTION, sc.getDescription());
 			return values;
 		}
