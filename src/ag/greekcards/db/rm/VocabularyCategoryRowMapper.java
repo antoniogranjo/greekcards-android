@@ -1,13 +1,13 @@
 package ag.greekcards.db.rm;
 
-import ag.greekcards.model.SustantiveCategory;
+import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.utils.db.RowMapper;
 import android.database.Cursor;
 
-public class SustantiveCategoryRowMapper implements RowMapper<SustantiveCategory> {
+public class VocabularyCategoryRowMapper implements RowMapper<VocabularyCategory> {
 	@Override
-	public SustantiveCategory mapRow(Cursor cursor) {
-		final SustantiveCategory sustantiveCategory = new SustantiveCategory();
+	public VocabularyCategory mapRow(Cursor cursor) {
+		final VocabularyCategory sustantiveCategory = new VocabularyCategory();
 		sustantiveCategory.setId(cursor.getInt(0));
 		sustantiveCategory.setDescription(cursor.getString(1));
 		

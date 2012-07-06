@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".TaskSelectionActivity"
+            android:name=".activities.TaskSelectionActivity"
             android:label="@string/title_activity_task_selection" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +21,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SustantiveTranslationActivity"
-            android:label="@string/title_activity_sustantive_translation" >
+            android:name=".activities.vocabulary.VocabularyTranslationActivity"
+            android:label="@string/title_activity_vocabulary_entry_translation" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.vocabulary.EditVocabularyEntryActivity"
+            android:label="@string/title_activity_vocabulary_entry_translation" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.AdminTaskSelectionActivity"
+            android:label="@string/title_activity_admin_task_selection" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.vocabulary.vocabularyelectionActivitytionActivity"
+            android:label="@string/title_activity_vocabulary_entry_selection" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.vocabulary.VocabularyTranslationOptionsActivity"
+            android:label="@string/title_activity_vocabulary_translation_options" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

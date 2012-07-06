@@ -4,21 +4,22 @@ import ag.greekcards.model.base.IdElement;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Sustantive extends IdElement implements Parcelable {
+public class VocabularyEntry extends IdElement implements Parcelable {
 	private String spanishText;
 	private String greekText;
+	private int categoryId;
 
-	public static final Parcelable.Creator<Sustantive> CREATOR = new Parcelable.Creator<Sustantive>() {
-		public Sustantive createFromParcel(Parcel in) {
-			final Sustantive s = new Sustantive();
+	public static final Parcelable.Creator<VocabularyEntry> CREATOR = new Parcelable.Creator<VocabularyEntry>() {
+		public VocabularyEntry createFromParcel(Parcel in) {
+			final VocabularyEntry s = new VocabularyEntry();
 			s.setId(in.readInt());
 			s.setSpanishText(in.readString());
 			s.setGreekText(in.readString());
 			return s;
 		}
 
-		public Sustantive[] newArray(int size) {
-			return new Sustantive[size];
+		public VocabularyEntry[] newArray(int size) {
+			return new VocabularyEntry[size];
 		}
 	};
 
@@ -48,5 +49,13 @@ public class Sustantive extends IdElement implements Parcelable {
 		parcel.writeInt(getId());
 		parcel.writeString(getSpanishText());
 		parcel.writeString(getGreekText());
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 }

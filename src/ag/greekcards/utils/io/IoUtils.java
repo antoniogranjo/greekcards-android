@@ -2,7 +2,6 @@ package ag.greekcards.utils.io;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import ag.greekcards.model.SustantiveCategory;
 import android.util.AndroidRuntimeException;
 
 public final class IoUtils {

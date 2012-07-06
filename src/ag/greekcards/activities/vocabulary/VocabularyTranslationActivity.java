@@ -1,13 +1,13 @@
-package ag.greekcards;
+package ag.greekcards.activities.vocabulary;
 
 import java.util.List;
 
-import ag.greekcards.model.Sustantive;
-import ag.greekcards.model.enums.SustantiveTranslationMode;
-import ag.greekcards.utils.SustantiveUtils;
+import ag.greekcards.R;
+import ag.greekcards.model.VocabularyEntry;
+import ag.greekcards.model.enums.TranslationMode;
+import ag.greekcards.utils.VocabularyUtils;
 import ag.greekcards.utils.gui.Animations;
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,20 +16,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SustantiveTranslationActivity extends Activity {
-	private static final String TAG = SustantiveTranslationActivity.class.getSimpleName();
+public class VocabularyTranslationActivity extends Activity {
+	private static final String TAG = VocabularyTranslationActivity.class.getSimpleName();
 	
 	private TextView questionText;
 	private TextView answerText;
 	private Button showTranslation;
-	private List<Sustantive> sustantives;
-	private int sustantiveIndex = 0;
-	private Sustantive sustantive;
-	private SustantiveTranslationMode translationMode;
+	private List<VocabularyEntry> vocabularyEntries;
+	private int veIndex = 0;
+	private VocabularyEntry vocabularyEntry;
+	private TranslationMode translationMode;
 	
-	public static final class IntentCodes {
-		private IntentCodes() {}
-		public static final String SUSTANTIVES = "sustantives";
+	public static final class BundleData {
+		private BundleData() {}
+		public static final String VOCABULARY_ENTRIES = "sustantives";
 		public static final String TRANSLATION_MODE = "translation_mode";
 	}
 	
@@ -39,7 +39,7 @@ public class SustantiveTranslationActivity extends Activity {
 			showTranslation();
 			if (thereAreMoreSustantivesToShow()) {
 				showTranslation.setText(getString(R.string.next));
-				showTranslation.setOnClickListener(onClickGoToNextSustantive);
+				showTranslation.setOnClickListener(onClickGoToNextVocabularyEntry);
 			} else {
 				showTranslation.setText(getString(R.string.exit));
 				showTranslation.setOnClickListener(onClickGoBackToMainMenu);
@@ -47,10 +47,10 @@ public class SustantiveTranslationActivity extends Activity {
 		}
 	};
 	
-	private OnClickListener onClickGoToNextSustantive = new OnClickListener() {
+	private OnClickListener onClickGoToNextVocabularyEntry = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			loadNextSustantive();
+			loadNextVocabularyEntry();
 			showTranslation.setText(getString(R.string.show_translation));
 			showTranslation.setOnClickListener(onClickShowTranslation);
 		}
@@ -59,7 +59,7 @@ public class SustantiveTranslationActivity extends Activity {
 	private OnClickListener onClickGoBackToMainMenu = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			SustantiveTranslationActivity.this.finish();
+			VocabularyTranslationActivity.this.finish();
 		}
 	};
 	
@@ -69,17 +69,18 @@ public class SustantiveTranslationActivity extends Activity {
         
         initLayoutComponents();
         initBundleData();
-        loadNextSustantive();
+        loadNextVocabularyEntry();
     }
 
+    @SuppressWarnings("unchecked")
 	private void initBundleData() {
 		final Bundle extra = getIntent().getExtras();
-		this.sustantives = (List<Sustantive>)extra.get(IntentCodes.SUSTANTIVES);
-		this.translationMode = SustantiveTranslationMode.valueOf((String)extra.get(IntentCodes.TRANSLATION_MODE));
+		this.vocabularyEntries = (List<VocabularyEntry>)extra.get(BundleData.VOCABULARY_ENTRIES);
+		this.translationMode = TranslationMode.valueOf((String)extra.get(BundleData.TRANSLATION_MODE));
 	}
 
 	private void initLayoutComponents() {
-		setContentView(R.layout.activity_sustantive_translation);
+		setContentView(R.layout.activity_vocabulary_entry_translation);
         questionText = (TextView)findViewById(R.id.questionText);
         answerText = (TextView)findViewById(R.id.answerText);
         showTranslation = (Button)findViewById(R.id.showTranslation);
@@ -90,22 +91,22 @@ public class SustantiveTranslationActivity extends Activity {
 	}
 	
 	private boolean thereAreMoreSustantivesToShow() {
-		return this.sustantiveIndex < sustantives.size();
+		return this.veIndex < vocabularyEntries.size();
 	}
 	
-	private void loadNextSustantive() {
-		this.sustantive = sustantives.get(sustantiveIndex++);
-		Log.d(TAG, "Configurando sustantivo [" + sustantive + "]");
-		questionText.setText(SustantiveUtils.getQuestionText(sustantive, translationMode));
+	private void loadNextVocabularyEntry() {
+		this.vocabularyEntry = vocabularyEntries.get(veIndex++);
+		Log.d(TAG, "Configurando entrada de vocabulario [" + vocabularyEntry + "]");
+		questionText.setText(VocabularyUtils.getQuestionText(vocabularyEntry, translationMode));
 		answerText.startAnimation(Animations.FADE_OUT_NOW);
-		answerText.setText(SustantiveUtils.getAnswerText(sustantive, translationMode));
+		answerText.setText(VocabularyUtils.getAnswerText(vocabularyEntry, translationMode));
 		showTranslation.setText(getString(R.string.show_translation));
 		showTranslation.setOnClickListener(onClickShowTranslation);
 	}
 	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_sustantive_translation, menu);
+        getMenuInflater().inflate(R.menu.activity_vocabulary_entry_translation, menu);
         return true;
     }
 }

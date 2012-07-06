@@ -1,31 +1,42 @@
 package ag.greekcards.db;
 
-import ag.greekcards.model.Sustantive;
-import ag.greekcards.model.SustantiveCategory;
+import ag.greekcards.model.VocabularyCategory;
+import ag.greekcards.model.VocabularyEntry;
 import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 public final class GreekCardsSQL {
 	public static final String DATABASE_NAME = "greekcards";
 	public static final int DATABASE_VERSION = 1;
+	public static final String FILTER_BY_ID = BaseColumns._ID + " = ?";
 	
 	public static final class Sustantives implements BaseColumns {
 		public static final String _GREEK_TEXT = "txt_gr";
 		public static final String _SPANISH_TEXT = "txt_es";
+		public static final String _CATEGORY_ID = "txt_es";
 		public static final String TABLE_NAME = "sustantives";
 		public static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
 				_ID + " integer primary key autoincrement, " +
 				_GREEK_TEXT	+ " text not null, " +
-				_SPANISH_TEXT + " text not null);";
+				_SPANISH_TEXT + " text not null, " +
+				_CATEGORY_ID + " integer not null default " + VocabularyCategory.NO_CATEGORY_ID + ");";
 		public static final String[] QUERY_COLS = new String[] {_ID, _GREEK_TEXT, _SPANISH_TEXT};
 		public static final String FILE = "sustantives.txt";
 		
 		private Sustantives() {}
 		
-		public static ContentValues getInsertContentValues(Sustantive s) {
+		public static ContentValues getInsertContentValues(VocabularyEntry s) {
 			final ContentValues values = new ContentValues();
 			values.put(_GREEK_TEXT, s.getGreekText());
 			values.put(_SPANISH_TEXT, s.getSpanishText());
+			return values;
+		}
+
+		public static ContentValues getUpdateContentValues(VocabularyEntry s) {
+			final ContentValues values = new ContentValues();
+			values.put(_GREEK_TEXT, s.getGreekText());
+			values.put(_SPANISH_TEXT, s.getSpanishText());
+			values.put(_CATEGORY_ID, s.getCategoryId());
 			return values;
 		}
 	}
@@ -41,7 +52,7 @@ public final class GreekCardsSQL {
 		
 		private SustantiveCategories() {}
 
-		public static ContentValues getInsertContentValues(SustantiveCategory sc) {
+		public static ContentValues getInsertContentValues(VocabularyCategory sc) {
 			final ContentValues values = new ContentValues();
 			values.put(_ID, sc.getId());
 			values.put(_DESCRIPTION, sc.getDescription());

@@ -5,21 +5,50 @@
     tools:ignore="NewApi" >
 
     <Button
-        android:id="@+id/sustantivesTranslationButton"
+        android:id="@+id/vocabularyTranslationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/sustantives" />
+        android:text="@string/vocabulary" />
 
-    <Spinner
-        android:id="@+id/sustantiveCategories"
+    <Button
+        android:id="@+id/verbsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sustantivesTranslationButton"
+        android:layout_below="@+id/vocabularyTranslationButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/verbs" />
+
+    <Button
+        android:id="@+id/adminButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verbsButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/admin" />
+
+    <Spinner
+        android:id="@+id/vocabulary_entryCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adminButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:prompt="@string/select_category" />
+
+    <Button
+        android:id="@+id/aboutButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/question" />
 
 </RelativeLayout>

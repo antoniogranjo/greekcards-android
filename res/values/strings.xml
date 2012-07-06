@@ -1,15 +1,27 @@
 <resources>
 
     <string name="app_name">GreekCards</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_task_selection">TaskSelectionActivity</string>
-    <string name="sustantives">Sustantives</string>
-    <string name="select_category">Select a category</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="vocabulary">Vocabulario</string>
+    <string name="verbs">Verbos</string>
+    <string name="select_category">Seleccionar categoría</string>
+    <string name="hello_world">Hola mundo!</string>
     <string name="show_translation">\?</string>
-    <string name="text_not_set">text not set!</string>
+    <string name="question">\?</string>
+    <string name="text_not_set">texto no configurado!</string>
     <string name="next">Siguiente</string>
     <string name="exit">Salir</string>
-    <string name="title_activity_sustantive_translation">SustantiveTranslationActivity</string>
+    <string name="spanish_text">Texto en español</string>
+    <string name="greek_text">Texto en griego</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="admin">Administración</string>
+    <string name="back">Volver</string>
+    <string name="vocabulary_entry_saved_ok">Se ha guardado correctamente.</string>
+    <string name="title_activity_task_selection">Selección de actividad</string>
+    <string name="title_activity_admin_task_selection">Selección de tarea de administración</string>
+    <string name="title_activity_vocabulary_entry_translation">Traducción de vocabulario</string>
+    <string name="title_activity_vocabulary_entry_selection">Administración de vocabulario</string>
+    <string name="title_activity_vocabulary_translation_options">VocabularyTranslationOptionsActivity</string>
 
 </resources>
