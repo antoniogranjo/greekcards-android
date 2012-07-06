@@ -13,11 +13,11 @@ public class GreekCardsDataSource {
 		dbHelper = new GreekCardsDbHelper(context);
 	}
 	
-	public List<VocabularyEntry> findSustantives(VocabularyCategory categoryFilter) {
+	public List<VocabularyEntry> findVocabularyEntries(VocabularyCategory categoryFilter) {
 		return dbHelper.findVocabularyEntries(categoryFilter);
 	}
 	
-	public List<VocabularyEntry> findSustantives() {
+	public List<VocabularyEntry> findVocabularyEntries() {
 		return dbHelper.findVocabularyEntries(VocabularyCategory.CATEGORY_ALL);
 	}
 
@@ -38,14 +38,14 @@ public class GreekCardsDataSource {
 	}
 	
 	public List<VocabularyCategory> findVocabularyCategories() {
-		return dbHelper.findSustantiveCategories();
+		return dbHelper.findVocabularyCategories();
 	}
 
-	public VocabularyEntry newSustantive(VocabularyEntry sustantive) {
+	public VocabularyEntry newVocabularyEntry(VocabularyEntry sustantive) {
 		return dbHelper.newVocabularyEntry(sustantive);
 	}
 
-	public void updateSustantive(VocabularyEntry sustantive) {
+	public void updateVocabularyEntry(VocabularyEntry sustantive) {
 		dbHelper.updateVocabularyEntry(sustantive);
 	}
 }

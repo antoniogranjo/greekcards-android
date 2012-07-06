@@ -7,23 +7,23 @@ import android.provider.BaseColumns;
 
 public final class GreekCardsSQL {
 	public static final String DATABASE_NAME = "greekcards";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public static final String FILTER_BY_ID = BaseColumns._ID + " = ?";
 	
-	public static final class Sustantives implements BaseColumns {
+	public static final class VocabularyEntries implements BaseColumns {
 		public static final String _GREEK_TEXT = "txt_gr";
 		public static final String _SPANISH_TEXT = "txt_es";
-		public static final String _CATEGORY_ID = "txt_es";
-		public static final String TABLE_NAME = "sustantives";
+		public static final String _CATEGORY_ID = "category_id";
+		public static final String TABLE_NAME = "vocabulary_entries";
 		public static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
 				_ID + " integer primary key autoincrement, " +
 				_GREEK_TEXT	+ " text not null, " +
 				_SPANISH_TEXT + " text not null, " +
 				_CATEGORY_ID + " integer not null default " + VocabularyCategory.NO_CATEGORY_ID + ");";
 		public static final String[] QUERY_COLS = new String[] {_ID, _GREEK_TEXT, _SPANISH_TEXT};
-		public static final String FILE = "sustantives.txt";
+		public static final String FILE = "vocabulary.txt";
 		
-		private Sustantives() {}
+		private VocabularyEntries() {}
 		
 		public static ContentValues getInsertContentValues(VocabularyEntry s) {
 			final ContentValues values = new ContentValues();
@@ -41,16 +41,16 @@ public final class GreekCardsSQL {
 		}
 	}
 	
-	public static final class SustantiveCategories implements BaseColumns {
+	public static final class VocabularyCategories implements BaseColumns {
 		public static final String _DESCRIPTION = "desc";
-		public static final String TABLE_NAME = "sustantive_categories";
+		public static final String TABLE_NAME = "vocabulary_categories";
 		public static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
 				_ID + " integer primary key, " +
 				_DESCRIPTION + " text not null);";
 		public static final String[] QUERY_COLS = new String[]{_ID, _DESCRIPTION};
-		public static final String FILE = "sustantive_categories.txt";
+		public static final String FILE = "vocabulary_categories.txt";
 		
-		private SustantiveCategories() {}
+		private VocabularyCategories() {}
 
 		public static ContentValues getInsertContentValues(VocabularyCategory sc) {
 			final ContentValues values = new ContentValues();
@@ -58,14 +58,6 @@ public final class GreekCardsSQL {
 			values.put(_DESCRIPTION, sc.getDescription());
 			return values;
 		}
-	}
-	
-	public static final class SustantiveCategoryRelations implements BaseColumns {
-		public static final String _ID_SUSTANTIVE = "id_sust";
-		public static final String _ID_CATEGORY = "id_cat";
-		public static final String TABLE_NAME = "sustantive_category_rels";
-		
-		private SustantiveCategoryRelations() {}
 	}
 	
 	private GreekCardsSQL() {}

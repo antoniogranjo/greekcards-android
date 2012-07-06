@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import ag.greekcards.db.GreekCardsSQL.SustantiveCategories;
-import ag.greekcards.db.GreekCardsSQL.Sustantives;
+import ag.greekcards.db.GreekCardsSQL.VocabularyCategories;
+import ag.greekcards.db.GreekCardsSQL.VocabularyEntries;
 import ag.greekcards.db.rm.VocabularyCategoryRowMapper;
 import ag.greekcards.db.rm.VocabularyEntryRowMapper;
 import ag.greekcards.model.VocabularyCategory;
@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.AndroidRuntimeException;
+import android.util.Log;
 
 public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	private Context context;
@@ -58,26 +59,26 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 			// TODO filtro por categoria
 		}
 		
-		final Cursor cursor = getReadableDatabase().query(Sustantives.TABLE_NAME, Sustantives.QUERY_COLS, null, null, null, null, null);
+		final Cursor cursor = getReadableDatabase().query(VocabularyEntries.TABLE_NAME, VocabularyEntries.QUERY_COLS, null, null, null, null, null);
 		return DbUtils.extract(cursor, RowMappers.VOCABULARY_ENTRY);
 	}
 	
-	public List<VocabularyCategory> findSustantiveCategories() {
-		final Cursor cursor = getReadableDatabase().query(SustantiveCategories.TABLE_NAME, SustantiveCategories.QUERY_COLS, null, null, null, null, SustantiveCategories._DESCRIPTION + " ASC");
+	public List<VocabularyCategory> findVocabularyCategories() {
+		final Cursor cursor = getReadableDatabase().query(VocabularyCategories.TABLE_NAME, VocabularyCategories.QUERY_COLS, null, null, null, null, VocabularyCategories._DESCRIPTION + " ASC");
 		return DbUtils.extract(cursor, RowMappers.VOCABULARY_CATEGORY);
 	}
 
 	private void createGreekCardsDatabase(SQLiteDatabase db) {
-		createSustantivesTable(db);
-		createSustantiveCategoriesTable(db);
-		loadSustantivesFromFile(context, db);
+		createVocabularyEntriesTable(db);
+		createVocabularyCategoriesTable(db);
+		loadVocabularyEntriesFromFile(context, db);
 		loadVocabularyCategoriesFromFile(context, db);
 	}
 
-	private static void loadSustantivesFromFile(Context context, SQLiteDatabase db) {
+	private static void loadVocabularyEntriesFromFile(Context context, SQLiteDatabase db) {
 		InputStream is;
 		try {
-			is = context.getAssets().open(Sustantives.FILE);
+			is = context.getAssets().open(VocabularyEntries.FILE);
 		} catch (IOException e) {
 			throw new AndroidRuntimeException(e);
 		}
@@ -90,7 +91,7 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	private static void loadVocabularyCategoriesFromFile(Context context, SQLiteDatabase db) {
 		InputStream is;
 		try {
-			is = context.getAssets().open(SustantiveCategories.FILE);
+			is = context.getAssets().open(VocabularyCategories.FILE);
 		} catch (IOException e) {
 			throw new AndroidRuntimeException(e);
 		}
@@ -101,11 +102,11 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	}
 	
 	private static int createVocabularyCategory(VocabularyCategory sc, SQLiteDatabase db) {
-		return (int)db.insert(SustantiveCategories.TABLE_NAME, null, SustantiveCategories.getInsertContentValues(sc));
+		return (int)db.insert(VocabularyCategories.TABLE_NAME, null, VocabularyCategories.getInsertContentValues(sc));
 	}
 	
 	public void updateVocabularyEntry(VocabularyEntry sustantive) {
-		getWritableDatabase().update(Sustantives.TABLE_NAME, Sustantives.getUpdateContentValues(sustantive), GreekCardsSQL.FILTER_BY_ID, new String[] {sustantive.getId().toString()});
+		getWritableDatabase().update(VocabularyEntries.TABLE_NAME, VocabularyEntries.getUpdateContentValues(sustantive), GreekCardsSQL.FILTER_BY_ID, new String[] {sustantive.getId().toString()});
 	}
 	
 	public VocabularyEntry newVocabularyEntry(VocabularyEntry ve) {
@@ -115,19 +116,22 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	}
 
 	private static int createVocabularyEntry(VocabularyEntry ve, SQLiteDatabase db) {
-		return (int)db.insert(Sustantives.TABLE_NAME, null, Sustantives.getInsertContentValues(ve));
+		return (int)db.insert(VocabularyEntries.TABLE_NAME, null, VocabularyEntries.getInsertContentValues(ve));
 	}
 
-	private static void createSustantivesTable(SQLiteDatabase db) {
-		db.execSQL(Sustantives.CREATE_TABLE);
+	private static void createVocabularyEntriesTable(SQLiteDatabase db) {
+		db.execSQL(VocabularyEntries.CREATE_TABLE);
 	}
 
-	private static void createSustantiveCategoriesTable(SQLiteDatabase db) {
-		db.execSQL(SustantiveCategories.CREATE_TABLE);		
+	private static void createVocabularyCategoriesTable(SQLiteDatabase db) {
+		db.execSQL(VocabularyCategories.CREATE_TABLE);		
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
+		if (newVersion > oldVersion) {
+			Log.d("DB", "borrando base de datos...");
+			context.deleteDatabase(GreekCardsSQL.DATABASE_NAME);
+		}
 	}
 }

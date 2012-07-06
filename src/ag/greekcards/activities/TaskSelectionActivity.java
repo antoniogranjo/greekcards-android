@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ag.greekcards.R;
+import ag.greekcards.activities.verbs.VerbsOptionsActivity;
 import ag.greekcards.activities.vocabulary.VocabularyTranslationActivity;
 import ag.greekcards.activities.vocabulary.VocabularyTranslationOptionsActivity;
 import ag.greekcards.db.GreekCardsDataSource;
@@ -37,7 +38,7 @@ public class TaskSelectionActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			final Intent vocabularyTranslation = new Intent(getBaseContext(), VocabularyTranslationActivity.class);
-			final List<VocabularyEntry> sustantives = greekCardsDataSource.findSustantives();
+			final List<VocabularyEntry> sustantives = greekCardsDataSource.findVocabularyEntries();
 			vocabularyTranslation.putExtra(VocabularyTranslationActivity.BundleData.VOCABULARY_ENTRIES, new ArrayList<VocabularyEntry>(sustantives));
 			vocabularyTranslation.putExtra(VocabularyTranslationActivity.BundleData.TRANSLATION_MODE, TranslationMode.GREEK_TO_SPANISH.name());
 			startActivity(vocabularyTranslation);
@@ -54,7 +55,7 @@ public class TaskSelectionActivity extends Activity {
 	private final OnClickListener goToVerbsOptions = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			NavigationUtils.startSimpleNavigaton(TaskSelectionActivity.this, VocabularyTranslationOptionsActivity.class);
+			NavigationUtils.startSimpleNavigaton(TaskSelectionActivity.this, VerbsOptionsActivity.class);
 		}
 	};
 	

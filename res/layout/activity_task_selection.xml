@@ -32,7 +32,7 @@
         android:text="@string/admin" />
 
     <Spinner
-        android:id="@+id/vocabulary_entryCategories"
+        android:id="@+id/vocabularyCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/adminButton"
