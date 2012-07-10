@@ -15,6 +15,7 @@ public class VocabularyEntry extends IdElement implements Parcelable {
 			s.setId(in.readInt());
 			s.setSpanishText(in.readString());
 			s.setGreekText(in.readString());
+			s.setCategoryId(in.readInt());
 			return s;
 		}
 
@@ -49,6 +50,7 @@ public class VocabularyEntry extends IdElement implements Parcelable {
 		parcel.writeInt(getId());
 		parcel.writeString(getSpanishText());
 		parcel.writeString(getGreekText());
+		parcel.writeInt(getCategoryId());
 	}
 
 	public int getCategoryId() {

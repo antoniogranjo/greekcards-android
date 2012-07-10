@@ -51,15 +51,18 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<VocabularyEntry> findVocabularyEntries(VocabularyCategory categoryFilter) {
-		String selectFrom = null;
-		String where = null;
-		String[] whereArgs = null;
+		final String selection;
+		final String[] selectionArgs;
 		
 		if (categoryFilter != null && !categoryFilter.isCategoryAll()) {
-			// TODO filtro por categoria
+			selection = VocabularyEntries.SELECTION_BY_CATEGORY_ID;
+			selectionArgs = new String[] {categoryFilter.getId().toString()};
+		} else {
+			selection = null;
+			selectionArgs = null;
 		}
 		
-		final Cursor cursor = getReadableDatabase().query(VocabularyEntries.TABLE_NAME, VocabularyEntries.QUERY_COLS, null, null, null, null, null);
+		final Cursor cursor = getReadableDatabase().query(VocabularyEntries.TABLE_NAME, VocabularyEntries.QUERY_COLS, selection, selectionArgs, null, null, null);
 		return DbUtils.extract(cursor, RowMappers.VOCABULARY_ENTRY);
 	}
 	
@@ -70,9 +73,14 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 
 	private void createGreekCardsDatabase(SQLiteDatabase db) {
 		createVocabularyEntriesTable(db);
+		createVocabularyEntriesTableIndex(db);
 		createVocabularyCategoriesTable(db);
 		loadVocabularyEntriesFromFile(context, db);
 		loadVocabularyCategoriesFromFile(context, db);
+	}
+
+	private void createVocabularyEntriesTableIndex(SQLiteDatabase db) {
+		db.execSQL(VocabularyEntries.CREATE_INDEX);
 	}
 
 	private static void loadVocabularyEntriesFromFile(Context context, SQLiteDatabase db) {

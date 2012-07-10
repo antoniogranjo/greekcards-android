@@ -3,4 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <RadioGroup
+        android:id="@+id/translationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" >
+
+        <RadioButton
+            android:id="@+id/radioGreekToSpanish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/greek_to_spanish" />
+
+        <RadioButton
+            android:id="@+id/radioSpanishToGreek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spanish_to_greek" />
+    </RadioGroup>
+
+   	<Spinner
+        android:id="@+id/vocabularyCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/translationType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:prompt="@string/select_category" />
+
+   	<Button
+   	    android:id="@+id/button1"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentBottom="true"
+   	    android:layout_centerHorizontal="true"
+   	    android:layout_marginBottom="40dp"
+   	    android:onClick="startTranslation"
+   	    android:text="@string/start" />
+
 </RelativeLayout>

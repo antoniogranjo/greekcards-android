@@ -11,7 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/vocabulary" />
+        android:text="@string/vocabulary"
+        android:onClick="goToVocabulary" />
 
     <Button
         android:id="@+id/verbsButton"
@@ -20,7 +21,8 @@
         android:layout_below="@+id/vocabularyTranslationButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/verbs" />
+        android:text="@string/verbs"
+        android:onClick="goToVerbs" />
 
     <Button
         android:id="@+id/adminButton"
@@ -29,16 +31,8 @@
         android:layout_below="@+id/verbsButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/admin" />
-
-    <Spinner
-        android:id="@+id/vocabularyCategories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/adminButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:prompt="@string/select_category" />
+        android:text="@string/admin"
+        android:onClick="goToAdmin" />
 
     <Button
         android:id="@+id/aboutButton"
@@ -49,6 +43,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:text="@string/question" />
+        android:text="@string/question"
+        android:onClick="showAbout" />
 
 </RelativeLayout>

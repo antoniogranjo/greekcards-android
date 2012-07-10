@@ -1,5 +1,5 @@
-σπίτι|casa
-αυτοκίνητο|coche
+σπίτι|casa|7
+αυτοκίνητο|coche|5
 άνθρωπος|hombre
 γυναίκα|mujer
 ευχαριστώ|gracias

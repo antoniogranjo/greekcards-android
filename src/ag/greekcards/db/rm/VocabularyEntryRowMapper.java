@@ -11,6 +11,7 @@ public class VocabularyEntryRowMapper implements RowMapper<VocabularyEntry> {
 		sustantive.setId(cursor.getInt(0));
 		sustantive.setGreekText(cursor.getString(1));
 		sustantive.setSpanishText(cursor.getString(2));
+		sustantive.setCategoryId(cursor.getInt(3));
 		
 		return sustantive;
 	}

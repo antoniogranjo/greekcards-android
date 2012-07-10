@@ -23,26 +23,26 @@ import android.widget.Spinner;
 public class EditVocabularyEntryActivity extends Activity {
 	private static final int DIALOG_SAVED_OK = 0;
 	private GreekCardsDataSource greekCardsDataSource;
-	private VocabularyEntry sustantive;
+	private VocabularyEntry vocabularyEntry;
 	private VocabularyEntryEditionMode editionMode;
 	private Button saveButton;
 	private Button cancelButton;
 	private EditText spanishText;
 	private EditText greekText;
-	private Spinner sustantiveCategories;
-	private AlertDialog savedOkDialog = initSavedOkDialog();
+	private Spinner vocabularyCategories;
+	private ArrayAdapter<VocabularyCategory> vocabularyCategoriesAdapter;
+	private AlertDialog savedOkDialog;
 	
 	public static final class BundleData {
 		private BundleData() {}
-		public static final String EDIT_MODE = "edit_mode";
-		public static final String SUSTANTIVE = "SUSTANTIVE";
+		public static final String VOCABULARY_ENTRY = "voc_entry";
 	}
 	
 	private final OnClickListener onClickSaveNewSustantive = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			fromFieldsToSustantive();
-			sustantive = greekCardsDataSource.newVocabularyEntry(sustantive);
+			fromFieldsToVocabularyEntry();
+			vocabularyEntry = greekCardsDataSource.newVocabularyEntry(vocabularyEntry);
 			showSavedOkMessage();
 		}
 	};
@@ -50,8 +50,8 @@ public class EditVocabularyEntryActivity extends Activity {
 	private final OnClickListener onClickSaveEditSustantive = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			fromFieldsToSustantive();
-			greekCardsDataSource.updateVocabularyEntry(sustantive);
+			fromFieldsToVocabularyEntry();
+			greekCardsDataSource.updateVocabularyEntry(vocabularyEntry);
 			showSavedOkMessage();
 		}
 	};
@@ -84,9 +84,10 @@ public class EditVocabularyEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         greekCardsDataSource = new GreekCardsDataSource(this);
         setContentView(R.layout.activity_edit_vocabulary_entry);
-        initBundleData();
         bindViewComponents();
+        initBundleData();
         setupViewComponentsBasingOnEditionMode();
+        savedOkDialog = initSavedOkDialog();
     }
 
     @Override
@@ -105,7 +106,7 @@ public class EditVocabularyEntryActivity extends Activity {
 		saveButton = (Button)findViewById(R.id.saveButton);
 		greekText = (EditText)findViewById(R.id.greekText);
 		spanishText = (EditText)findViewById(R.id.spanishText);
-		sustantiveCategories = (Spinner)findViewById(R.id.vocabularyCategories);
+		vocabularyCategories = (Spinner)findViewById(R.id.vocabularyCategories);
 	}
 
 	private void setupViewComponentsBasingOnEditionMode() {
@@ -121,30 +122,48 @@ public class EditVocabularyEntryActivity extends Activity {
 	}
 
 	private void setupCategoriesSpinner() {
-		final List<VocabularyCategory> sc = greekCardsDataSource.findVocabularyCategoriesWithNoCategoryElement();
-        final ArrayAdapter<VocabularyCategory> adapter = new ArrayAdapter<VocabularyCategory>(this, android.R.layout.simple_spinner_item, sc);
-	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    sustantiveCategories.setAdapter(adapter);
+		final List<VocabularyCategory> sc = greekCardsDataSource.findVocabularyCategoriesWithCategoryAll();
+		vocabularyCategoriesAdapter = new ArrayAdapter<VocabularyCategory>(this, android.R.layout.simple_spinner_item, sc);
+		vocabularyCategoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    vocabularyCategories.setAdapter(vocabularyCategoriesAdapter);
 	}
 
 	private void initBundleData() {
     	final Bundle extra = getIntent().getExtras();
-		this.editionMode = (VocabularyEntryEditionMode)extra.get(BundleData.EDIT_MODE);
-		
-		if (VocabularyEntryEditionMode.EDIT.equals(this.editionMode)) {
-			this.sustantive = (VocabularyEntry)extra.get(BundleData.SUSTANTIVE);
-			fromSustantiveToFields();
+    	if (extra != null && extra.containsKey(BundleData.VOCABULARY_ENTRY)) {
+    		this.editionMode = VocabularyEntryEditionMode.EDIT;
+    		this.vocabularyEntry = (VocabularyEntry)extra.getParcelable(BundleData.VOCABULARY_ENTRY);
+			fromVocabularyEntryToFields();
+    	} else {
+			this.editionMode = VocabularyEntryEditionMode.ADD;
+			this.vocabularyEntry = new VocabularyEntry();
 		}
 	}
 	
-	private void fromSustantiveToFields() {
-		this.spanishText.setText(this.sustantive.getSpanishText());
-		this.greekText.setText(this.sustantive.getGreekText());
+	private void fromVocabularyEntryToFields() {
+		this.spanishText.setText(this.vocabularyEntry.getSpanishText());
+		this.greekText.setText(this.vocabularyEntry.getGreekText());
+		
+		vocabularyCategories.setSelection(getCategoryPositionInSpinner(this.vocabularyEntry.getCategoryId()));
 	}
 	
-	private void fromFieldsToSustantive() {
-		this.spanishText.setText(this.sustantive.getSpanishText());
-		this.greekText.setText(this.sustantive.getGreekText());
+	private int getCategoryPositionInSpinner(int categoryId) {
+		for (int i = 0; i < vocabularyCategories.getCount(); i++) {
+			if (categoryId == vocabularyCategoriesAdapter.getItem(i).getId().intValue()) {
+				return i;
+			}
+		}
+		
+		return 0;
+	}
+	
+	private void fromFieldsToVocabularyEntry() {
+		this.vocabularyEntry.setSpanishText(this.spanishText.getText().toString());
+		this.vocabularyEntry.setGreekText(this.greekText.getText().toString());
+		
+		final int selectedCategoryPosition = vocabularyCategories.getSelectedItemPosition();
+    	final VocabularyCategory category = vocabularyCategoriesAdapter.getItem(selectedCategoryPosition);
+    	this.vocabularyEntry.setCategoryId(category.getId());
 	}
 
 	@Override

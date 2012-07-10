@@ -13,8 +13,11 @@
     <string name="exit">Salir</string>
     <string name="spanish_text">Texto en español</string>
     <string name="greek_text">Texto en griego</string>
+    <string name="greek_to_spanish">Griego -> Español</string>
+    <string name="spanish_to_greek">Español -> Griego</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Guardar</string>
+    <string name="start">Empezar</string>
     <string name="admin">Administración</string>
     <string name="back">Volver</string>
     <string name="buscar">Buscar</string>
@@ -25,5 +28,11 @@
     <string name="title_activity_vocabulary_entry_selection">Administración de vocabulario</string>
     <string name="title_activity_vocabulary_translation_options">VocabularyTranslationOptionsActivity</string>
     <string name="title_activity_verbs_options">VerbsOptionsActivity</string>
+    <string name="edit_vocabulary_entry">Editar entrada de vocabulario</string>
+    <string name="add_vocabulary_entry">Añadir entrada de vocabulario</string>
+    <string name="edit_verb">Editar verbo</string>
+    <string name="add_verb">Añadir verbo</string>
+    <string name="title_activity_verb_selection">VerbSelectionActivity</string>
+    <string name="title_activity_edit_verb">EditVerbActivity</string>
 
 </resources>

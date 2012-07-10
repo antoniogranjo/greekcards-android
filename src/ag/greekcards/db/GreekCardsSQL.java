@@ -15,13 +15,18 @@ public final class GreekCardsSQL {
 		public static final String _SPANISH_TEXT = "txt_es";
 		public static final String _CATEGORY_ID = "category_id";
 		public static final String TABLE_NAME = "vocabulary_entries";
+		public static final String INDEX_NAME = "vocabulary_entries_categ_idx";
 		public static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" +
 				_ID + " integer primary key autoincrement, " +
 				_GREEK_TEXT	+ " text not null, " +
 				_SPANISH_TEXT + " text not null, " +
-				_CATEGORY_ID + " integer not null default " + VocabularyCategory.NO_CATEGORY_ID + ");";
-		public static final String[] QUERY_COLS = new String[] {_ID, _GREEK_TEXT, _SPANISH_TEXT};
+				_CATEGORY_ID + " integer not null);";
+		
+		public static final String CREATE_INDEX = "create index " + INDEX_NAME + " on " + TABLE_NAME + " (" + _CATEGORY_ID + ")";
+		
+		public static final String[] QUERY_COLS = new String[] {_ID, _GREEK_TEXT, _SPANISH_TEXT, _CATEGORY_ID};
 		public static final String FILE = "vocabulary.txt";
+		public static final String SELECTION_BY_CATEGORY_ID = _CATEGORY_ID + " = ?";
 		
 		private VocabularyEntries() {}
 		
@@ -29,6 +34,7 @@ public final class GreekCardsSQL {
 			final ContentValues values = new ContentValues();
 			values.put(_GREEK_TEXT, s.getGreekText());
 			values.put(_SPANISH_TEXT, s.getSpanishText());
+			values.put(_CATEGORY_ID, s.getCategoryId());
 			return values;
 		}
 

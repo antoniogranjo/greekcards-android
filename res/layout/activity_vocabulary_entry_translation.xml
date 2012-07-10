@@ -10,7 +10,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="113dp"
-        android:text="@string/text_not_set" />
+        android:text="@string/text_not_set"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/answerText"
@@ -19,7 +20,8 @@
         android:layout_below="@+id/questionText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
-        android:text="@string/text_not_set" />
+        android:text="@string/text_not_set"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/showTranslation"
@@ -30,5 +32,16 @@
         android:layout_marginTop="78dp"
         android:text="@string/show_translation"
         android:width="@dimen/show_translation_button_width" />
+
+    <TextView
+        android:id="@+id/currentCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/text_not_set"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
