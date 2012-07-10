@@ -142,4 +142,8 @@ public class GreekCardsDbHelper extends SQLiteOpenHelper {
 			context.deleteDatabase(GreekCardsSQL.DATABASE_NAME);
 		}
 	}
+
+	public void delete(VocabularyEntry vocabularyEntry) {
+		getWritableDatabase().delete(VocabularyEntries.TABLE_NAME, VocabularyEntries.SELECTION_BY_ID, new String[] {vocabularyEntry.getId().toString()});
+	}
 }

@@ -11,6 +11,7 @@
     <string name="text_not_set">texto no configurado!</string>
     <string name="next">Siguiente</string>
     <string name="exit">Salir</string>
+    <string name="restart">Reiniciar</string>
     <string name="spanish_text">Texto en español</string>
     <string name="greek_text">Texto en griego</string>
     <string name="greek_to_spanish">Griego -> Español</string>
@@ -20,19 +21,24 @@
     <string name="start">Empezar</string>
     <string name="admin">Administración</string>
     <string name="back">Volver</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_vocabulary_entry_confirmation">¿Desea eliminar la entrada seleccionada? Este paso no se puede deshacer.</string>
     <string name="buscar">Buscar</string>
+    <string name="end_of_translation_activity">Se ha llegado al final de la lista. ¿Volver a empezar?</string>
+    <string name="no_vocabulary_entry">No se han encontrado entradas de vocabulario.</string>
     <string name="vocabulary_entry_saved_ok">Se ha guardado correctamente.</string>
+    <string name="vocabulary_entry_deleted_ok">Se ha eliminado correctamente.</string>
     <string name="title_activity_task_selection">Selección de actividad</string>
     <string name="title_activity_admin_task_selection">Selección de tarea de administración</string>
     <string name="title_activity_vocabulary_entry_translation">Traducción de vocabulario</string>
     <string name="title_activity_vocabulary_entry_selection">Administración de vocabulario</string>
-    <string name="title_activity_vocabulary_translation_options">VocabularyTranslationOptionsActivity</string>
-    <string name="title_activity_verbs_options">VerbsOptionsActivity</string>
+    <string name="title_activity_vocabulary_translation_options">Opciones de traducción de vocabulario</string>
+    <string name="title_activity_edit_verb">Editar verbo</string>
+    <string name="title_activity_verbs_options">Opciones de verbos</string>
+    <string name="title_activity_verb_selection">Selección de verbo</string>
     <string name="edit_vocabulary_entry">Editar entrada de vocabulario</string>
     <string name="add_vocabulary_entry">Añadir entrada de vocabulario</string>
     <string name="edit_verb">Editar verbo</string>
     <string name="add_verb">Añadir verbo</string>
-    <string name="title_activity_verb_selection">VerbSelectionActivity</string>
-    <string name="title_activity_edit_verb">EditVerbActivity</string>
 
 </resources>

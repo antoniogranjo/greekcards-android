@@ -6,8 +6,12 @@ import ag.greekcards.R;
 import ag.greekcards.db.GreekCardsDataSource;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.enums.TranslationMode;
+import ag.greekcards.utils.BundleData;
 import ag.greekcards.utils.NavigationUtils;
+import ag.greekcards.utils.RequestCodes;
+import ag.greekcards.utils.ResultCodes;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -43,10 +47,7 @@ public class VocabularyTranslationOptionsActivity extends Activity {
     	final int selectedCategoryPosition = vocabularyCategories.getSelectedItemPosition();
     	final VocabularyCategory category = vocabularyCategoriesAdapter.getItem(selectedCategoryPosition);
     	
-    	final Bundle extras = new Bundle(2);
-    	extras.putParcelable(VocabularyTranslationActivity.BundleData.VOCABULARY_CATEGORY, category);
-    	extras.putString(VocabularyTranslationActivity.BundleData.TRANSLATION_MODE, translationMode.name());
-		NavigationUtils.startActivity(this, VocabularyTranslationActivity.class, extras);
+		NavigationUtils.startVocabularyTranslation(this, category, translationMode);
     }
 
     @Override
@@ -54,6 +55,19 @@ public class VocabularyTranslationOptionsActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_vocabulary_translation_options, menu);
         return true;
     }
+    
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case RequestCodes.START_VOCABULARY_TRANSLATION_ACTIVITY:
+			if (resultCode == ResultCodes.FINISH_PREVIOUS) {
+				this.finish();
+			}
+			break;
+		default:
+			super.onActivityResult(requestCode, resultCode, data);
+		}
+	}
 
 	private void setupSustantiveCategoriesSpinner() {
 		final List<VocabularyCategory> sc = greekCardsDataSource.findVocabularyCategoriesWithCategoryAll();

@@ -2,6 +2,7 @@ package ag.greekcards.db;
 
 import java.util.List;
 
+import ag.greekcards.db.GreekCardsSQL.VocabularyEntries;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
 import android.content.Context;
@@ -47,5 +48,9 @@ public class GreekCardsDataSource {
 
 	public void updateVocabularyEntry(VocabularyEntry sustantive) {
 		dbHelper.updateVocabularyEntry(sustantive);
+	}
+
+	public void delete(VocabularyEntry vocabularyEntry) {
+		dbHelper.delete(vocabularyEntry);
 	}
 }

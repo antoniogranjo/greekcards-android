@@ -1,7 +1,11 @@
 package ag.greekcards.utils;
 
 import ag.greekcards.activities.vocabulary.EditVocabularyEntryActivity;
+import ag.greekcards.activities.vocabulary.VocabularyTranslationActivity;
+import ag.greekcards.activities.vocabulary.VocabularyTranslationOptionsActivity;
+import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
+import ag.greekcards.model.enums.TranslationMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +35,14 @@ public final class NavigationUtils {
 	
 	public static void startVocabularyEntryEdit(Activity currentActivity, VocabularyEntry ve) {
 		final Bundle extras = new Bundle();
-		extras.putParcelable(EditVocabularyEntryActivity.BundleData.VOCABULARY_ENTRY, ve);
-		startActivity(currentActivity, EditVocabularyEntryActivity.class, extras);
+		extras.putParcelable(BundleData.VOCABULARY_ENTRY, ve);
+		startActivityForResult(currentActivity, EditVocabularyEntryActivity.class, extras, RequestCodes.EDIT_ENTRY);
+	}
+	
+	public static void startVocabularyTranslation(VocabularyTranslationOptionsActivity currentActivity, VocabularyCategory category, TranslationMode translationMode) {
+		final Bundle extras = new Bundle(2);
+    	extras.putParcelable(BundleData.VOCABULARY_CATEGORY, category);
+    	extras.putString(BundleData.TRANSLATION_MODE, translationMode.name());
+		NavigationUtils.startActivityForResult(currentActivity, VocabularyTranslationActivity.class, extras, RequestCodes.START_VOCABULARY_TRANSLATION_ACTIVITY);
 	}
 }

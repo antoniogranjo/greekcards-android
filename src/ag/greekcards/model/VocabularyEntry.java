@@ -60,4 +60,9 @@ public class VocabularyEntry extends IdElement implements Parcelable {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+
+	@Override
+	public String toString() {
+		return this.spanishText + " / " + this.greekText;
+	}
 }

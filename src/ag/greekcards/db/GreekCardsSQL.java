@@ -27,6 +27,7 @@ public final class GreekCardsSQL {
 		public static final String[] QUERY_COLS = new String[] {_ID, _GREEK_TEXT, _SPANISH_TEXT, _CATEGORY_ID};
 		public static final String FILE = "vocabulary.txt";
 		public static final String SELECTION_BY_CATEGORY_ID = _CATEGORY_ID + " = ?";
+		public static final String SELECTION_BY_ID = _ID + " = ?";
 		
 		private VocabularyEntries() {}
 		

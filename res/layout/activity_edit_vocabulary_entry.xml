@@ -74,7 +74,7 @@
         android:layout_alignLeft="@id/vocabularyCategories"
         android:layout_alignParentBottom="false"
         android:layout_below="@id/vocabularyCategories"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="35dp"
         android:text="@string/cancel" />
 
     <Button
@@ -93,5 +93,16 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cancelButton"
+        android:layout_below="@+id/cancelButton"
+        android:layout_marginTop="35dp"
+        android:text="@string/delete"
+        android:onClick="deleteVocabularyEntry"
+        />
 
 </RelativeLayout>
