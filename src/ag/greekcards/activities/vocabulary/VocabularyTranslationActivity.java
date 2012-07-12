@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ag.greekcards.R;
-import ag.greekcards.db.GreekCardsDataSource;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
 import ag.greekcards.model.enums.TranslationMode;
@@ -14,7 +14,6 @@ import ag.greekcards.utils.RequestCodes;
 import ag.greekcards.utils.ResultCodes;
 import ag.greekcards.utils.VocabularyUtils;
 import ag.greekcards.utils.gui.Animations;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -28,12 +27,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class VocabularyTranslationActivity extends Activity {
+public class VocabularyTranslationActivity extends GreekCardsActivity {
 	private static final int RESTART_DIALOG_ID = 1;
 	private static final int NO_ENTRIES_DIALOG_ID = 2;
 	private static final String TAG = VocabularyTranslationActivity.class.getSimpleName();
-	
-	private GreekCardsDataSource greekCardsDataSource;
 	
 	private TextView questionText;
 	private TextView answerText;
@@ -53,7 +50,7 @@ public class VocabularyTranslationActivity extends Activity {
 		public void onClick(View view) {
 			showTranslation();
 			showTranslation.setText(getString(R.string.next));
-			if (thereAreMoreSustantivesToShow()) {
+			if (thereAreMoreVocabularyEntriesToShow()) {
 				showTranslation.setOnClickListener(onClickGoToNextVocabularyEntry);
 			} else {
 				showTranslation.setOnClickListener(onClickShowRestartDialog);
@@ -95,8 +92,6 @@ public class VocabularyTranslationActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        greekCardsDataSource = new GreekCardsDataSource(this);
-        
         initLayoutComponents();
         initBundleData();
         loadVocabularyEntries();
@@ -104,7 +99,7 @@ public class VocabularyTranslationActivity extends Activity {
     }
 
 	private void loadVocabularyEntries() {
-		this.vocabularyEntries = greekCardsDataSource.findVocabularyEntries(this.vocabularyCategory);
+		this.vocabularyEntries = getGreekCardsDataSource().findVocabularyEntries(this.vocabularyCategory);
 		shuffleVocabularyEntries();
 	}
 	
@@ -136,19 +131,21 @@ public class VocabularyTranslationActivity extends Activity {
 		answerText.startAnimation(Animations.FADE_IN);
 	}
 	
-	private boolean thereAreMoreSustantivesToShow() {
+	private boolean thereAreMoreVocabularyEntriesToShow() {
 		return this.veIndex < vocabularyEntries.size();
 	}
 	
 	private void loadNextVocabularyEntry() {
-		this.vocabularyEntry = vocabularyEntries.get(veIndex++);
+		final int currentIndex = veIndex++;
 		
-		if (this.vocabularyEntry == null) {
+		if (currentIndex >= vocabularyEntries.size()) {
+			showDialog(NO_ENTRIES_DIALOG_ID);
+		} else {
+			this.vocabularyEntry = vocabularyEntries.get(currentIndex);
 			
+			Log.d(TAG, "Configurando entrada de vocabulario [" + vocabularyEntry + "]");
+			showCurrentVocabularyEntry();
 		}
-		
-		Log.d(TAG, "Configurando entrada de vocabulario [" + vocabularyEntry + "]");
-		showCurrentVocabularyEntry();
 	}
 
 	private void showCurrentVocabularyEntry() {

@@ -3,13 +3,12 @@ package ag.greekcards.activities.vocabulary;
 import java.util.List;
 
 import ag.greekcards.R;
-import ag.greekcards.db.GreekCardsDataSource;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
 import ag.greekcards.model.enums.VocabularyEntryEditionMode;
 import ag.greekcards.utils.BundleData;
 import ag.greekcards.utils.ResultCodes;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -23,11 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class EditVocabularyEntryActivity extends Activity {
+public class EditVocabularyEntryActivity extends GreekCardsActivity {
 	private static final int DIALOG_SAVED_OK = 0;
 	private static final int CONFIRM_ENTRY_DELETION = 1;
 	private static final int DIALOG_DELETION_OK = 2;
-	private GreekCardsDataSource greekCardsDataSource;
 	private VocabularyEntry vocabularyEntry;
 	private VocabularyEntryEditionMode editionMode;
 	private Button saveButton;
@@ -40,21 +38,21 @@ public class EditVocabularyEntryActivity extends Activity {
 	private AlertDialog deleteDialog;
 	private AlertDialog deletionOkDialog;
 	
-	private final OnClickListener onClickSaveNewSustantive = new OnClickListener() {
+	private final OnClickListener onClickSaveNewVocabularyEntry = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			fromFieldsToVocabularyEntry();
-			vocabularyEntry = greekCardsDataSource.newVocabularyEntry(vocabularyEntry);
+			vocabularyEntry = getGreekCardsDataSource().newVocabularyEntry(vocabularyEntry);
 			updateEditResultOk();
 			showSavedOkMessage();
 		}
 	};
 	
-	private final OnClickListener onClickSaveEditSustantive = new OnClickListener() {
+	private final OnClickListener onClickSaveEditVocabularyEntry = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			fromFieldsToVocabularyEntry();
-			greekCardsDataSource.updateVocabularyEntry(vocabularyEntry);
+			getGreekCardsDataSource().updateVocabularyEntry(vocabularyEntry);
 			updateEditResultOk();
 			showSavedOkMessage();
 		}
@@ -77,7 +75,7 @@ public class EditVocabularyEntryActivity extends Activity {
 	private final DialogInterface.OnClickListener onClickDialogDelete = new DialogInterface.OnClickListener() {
 		@Override
 		public void onClick(DialogInterface dialoginterface, int i) {
-			greekCardsDataSource.delete(vocabularyEntry);
+			getGreekCardsDataSource().delete(vocabularyEntry);
 			setResult(ResultCodes.DELETE_ENTRY_OK);
 			showDialog(DIALOG_DELETION_OK);
 		}
@@ -134,7 +132,6 @@ public class EditVocabularyEntryActivity extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        greekCardsDataSource = new GreekCardsDataSource(this);
         setContentView(R.layout.activity_edit_vocabulary_entry);
         bindViewComponents();
         initBundleData();
@@ -166,16 +163,16 @@ public class EditVocabularyEntryActivity extends Activity {
 		setupCategoriesSpinner();
 		
 		if (VocabularyEntryEditionMode.ADD.equals(this.editionMode)) {
-			saveButton.setOnClickListener(onClickSaveNewSustantive);
+			saveButton.setOnClickListener(onClickSaveNewVocabularyEntry);
 		} else {
-			saveButton.setOnClickListener(onClickSaveEditSustantive);
+			saveButton.setOnClickListener(onClickSaveEditVocabularyEntry);
 		}
 		
 		cancelButton.setOnClickListener(onClickGoBackToMainMenu);
 	}
 
 	private void setupCategoriesSpinner() {
-		final List<VocabularyCategory> sc = greekCardsDataSource.findVocabularyCategoriesWithCategoryAll();
+		final List<VocabularyCategory> sc = getGreekCardsDataSource().findVocabularyCategoriesWithCategoryAll();
 		vocabularyCategoriesAdapter = new ArrayAdapter<VocabularyCategory>(this, android.R.layout.simple_spinner_item, sc);
 		vocabularyCategoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    vocabularyCategories.setAdapter(vocabularyCategoriesAdapter);

@@ -2,7 +2,7 @@ package ag.greekcards.db;
 
 import java.util.List;
 
-import ag.greekcards.db.GreekCardsSQL.VocabularyEntries;
+import ag.greekcards.model.Verb;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
 import android.content.Context;
@@ -20,6 +20,10 @@ public class GreekCardsDataSource {
 	
 	public List<VocabularyEntry> findVocabularyEntries() {
 		return dbHelper.findVocabularyEntries(VocabularyCategory.CATEGORY_ALL);
+	}
+	
+	public List<Verb> findAllVerbs() {
+		return dbHelper.findAllVerbs();
 	}
 
 	public void close() {
@@ -42,15 +46,15 @@ public class GreekCardsDataSource {
 		return dbHelper.findVocabularyCategories();
 	}
 
-	public VocabularyEntry newVocabularyEntry(VocabularyEntry sustantive) {
-		return dbHelper.newVocabularyEntry(sustantive);
+	public VocabularyEntry newVocabularyEntry(VocabularyEntry ve) {
+		return dbHelper.newVocabularyEntry(ve);
 	}
 
-	public void updateVocabularyEntry(VocabularyEntry sustantive) {
-		dbHelper.updateVocabularyEntry(sustantive);
+	public void updateVocabularyEntry(VocabularyEntry ve) {
+		dbHelper.updateVocabularyEntry(ve);
 	}
 
-	public void delete(VocabularyEntry vocabularyEntry) {
-		dbHelper.delete(vocabularyEntry);
+	public void delete(VocabularyEntry ve) {
+		dbHelper.delete(ve);
 	}
 }

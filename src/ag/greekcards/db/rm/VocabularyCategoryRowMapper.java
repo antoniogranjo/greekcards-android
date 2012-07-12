@@ -7,10 +7,10 @@ import android.database.Cursor;
 public class VocabularyCategoryRowMapper implements RowMapper<VocabularyCategory> {
 	@Override
 	public VocabularyCategory mapRow(Cursor cursor) {
-		final VocabularyCategory sustantiveCategory = new VocabularyCategory();
-		sustantiveCategory.setId(cursor.getInt(0));
-		sustantiveCategory.setDescription(cursor.getString(1));
+		final VocabularyCategory vc = new VocabularyCategory();
+		vc.setId(cursor.getInt(0));
+		vc.setDescription(cursor.getString(1));
 		
-		return sustantiveCategory;
+		return vc;
 	}
 }

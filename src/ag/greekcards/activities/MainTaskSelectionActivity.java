@@ -1,32 +1,30 @@
 package ag.greekcards.activities;
 
 import ag.greekcards.R;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.activities.verbs.VerbsOptionsActivity;
 import ag.greekcards.activities.vocabulary.VocabularyTranslationOptionsActivity;
-import ag.greekcards.db.GreekCardsDataSource;
 import ag.greekcards.utils.NavigationUtils;
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class MainTaskSelectionActivity extends Activity {
+public class MainTaskSelectionActivity extends GreekCardsActivity {
 	private static final int ABOUT_DIALOG_ID = 1;
 	
-	private GreekCardsDataSource greekCardsDataSource;
 	private Dialog aboutDialog;
 	
 	public void goToVocabulary(View view) {
-		NavigationUtils.startActivity(MainTaskSelectionActivity.this, VocabularyTranslationOptionsActivity.class);
+		NavigationUtils.startActivity(this, VocabularyTranslationOptionsActivity.class);
 	}
 	
 	public void goToVerbs(View view) {
-		NavigationUtils.startActivity(MainTaskSelectionActivity.this, VerbsOptionsActivity.class);
+		NavigationUtils.startActivity(this, VerbsOptionsActivity.class);
 	}
 	
 	public void goToAdmin(View view) {
-		NavigationUtils.startActivity(MainTaskSelectionActivity.this, AdminTaskSelectionActivity.class);
+		NavigationUtils.startActivity(this, AdminTaskSelectionActivity.class);
 	}
 	
 	public void showAbout(View view) {
@@ -36,7 +34,6 @@ public class MainTaskSelectionActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        greekCardsDataSource = new GreekCardsDataSource(this);
         
         setContentView(R.layout.activity_task_selection);
     }
@@ -67,23 +64,5 @@ public class MainTaskSelectionActivity extends Activity {
 		aboutDialog = new Dialog(this);
 		aboutDialog.setContentView(R.layout.about_dialog);
 		aboutDialog.setTitle(getText(R.string.app_name));
-	}
-    
-	@Override
-	protected void onPause() {
-		greekCardsDataSource.close();
-		super.onPause();
-	}
-
-	@Override
-	protected void onStop() {
-		greekCardsDataSource.close();
-		super.onStop();
-	}
-
-	@Override
-	protected void onDestroy() {
-		greekCardsDataSource.close();
-		super.onDestroy();
 	}
 }

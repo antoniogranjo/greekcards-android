@@ -6,14 +6,13 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import ag.greekcards.R;
-import ag.greekcards.db.GreekCardsDataSource;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.model.VocabularyEntry;
 import ag.greekcards.utils.NavigationUtils;
 import ag.greekcards.utils.RequestCodes;
 import ag.greekcards.utils.ResultCodes;
 import ag.greekcards.utils.ViewUtils;
 import ag.greekcards.utils.collections.CollectionUtils;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,11 +25,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class VocabularyEntrySelectionActivity extends Activity {
+public class VocabularyEntrySelectionActivity extends GreekCardsActivity {
 	private EditText filter;
 	private ListView vocabularyList;
 	private List<VocabularyEntry> allEntries;
-	private GreekCardsDataSource greekCardsDataSource;
 	
 	private OnItemClickListener vocabularyEntryClickListener = new OnItemClickListener() {
 		@Override
@@ -56,7 +54,6 @@ public class VocabularyEntrySelectionActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        greekCardsDataSource = new GreekCardsDataSource(this);
         loadVocabularyEntries();
         setContentView(R.layout.activity_vocabulary_entry_selection);
         bindViewComponents();
@@ -65,7 +62,7 @@ public class VocabularyEntrySelectionActivity extends Activity {
     }
 
 	private void loadVocabularyEntries() {
-		allEntries = greekCardsDataSource.findVocabularyEntries();
+		allEntries = getGreekCardsDataSource().findVocabularyEntries();
         Collections.sort(allEntries, CollectionUtils.COMPARATOR_BY_TOSTRING);
 	}
     

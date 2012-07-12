@@ -3,14 +3,12 @@ package ag.greekcards.activities.vocabulary;
 import java.util.List;
 
 import ag.greekcards.R;
-import ag.greekcards.db.GreekCardsDataSource;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.enums.TranslationMode;
-import ag.greekcards.utils.BundleData;
 import ag.greekcards.utils.NavigationUtils;
 import ag.greekcards.utils.RequestCodes;
 import ag.greekcards.utils.ResultCodes;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,8 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-public class VocabularyTranslationOptionsActivity extends Activity {
-	private GreekCardsDataSource greekCardsDataSource;
+public class VocabularyTranslationOptionsActivity extends GreekCardsActivity {
 	private Spinner vocabularyCategories;
 	private ArrayAdapter<VocabularyCategory> vocabularyCategoriesAdapter;
 	private RadioGroup translationTypeRadioGroup;
@@ -28,10 +25,9 @@ public class VocabularyTranslationOptionsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        greekCardsDataSource = new GreekCardsDataSource(this);
         setContentView(R.layout.activity_vocabulary_translation_options);
         bindViewComponents();
-        setupSustantiveCategoriesSpinner();
+        setupVocabularyCategoriesSpinner();
     }
     
     private void bindViewComponents() {
@@ -69,8 +65,8 @@ public class VocabularyTranslationOptionsActivity extends Activity {
 		}
 	}
 
-	private void setupSustantiveCategoriesSpinner() {
-		final List<VocabularyCategory> sc = greekCardsDataSource.findVocabularyCategoriesWithCategoryAll();
+	private void setupVocabularyCategoriesSpinner() {
+		final List<VocabularyCategory> sc = getGreekCardsDataSource().findVocabularyCategoriesWithCategoryAll();
 		vocabularyCategoriesAdapter = new ArrayAdapter<VocabularyCategory>(this, android.R.layout.simple_spinner_item, sc);
 		vocabularyCategoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    vocabularyCategories.setAdapter(vocabularyCategoriesAdapter);
