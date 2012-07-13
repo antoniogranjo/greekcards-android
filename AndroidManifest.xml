@@ -16,82 +16,40 @@
             android:label="@string/title_activity_task_selection" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.vocabulary.VocabularyTranslationActivity"
             android:label="@string/title_activity_vocabulary_entry_translation" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.vocabulary.EditVocabularyEntryActivity"
             android:label="@string/title_activity_vocabulary_entry_translation" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.vocabulary.VocabularyEntrySelectionActivity"
             android:label="@string/title_activity_vocabulary_entry_selection" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.vocabulary.VocabularyTranslationOptionsActivity"
             android:label="@string/title_activity_vocabulary_translation_options" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.verbs.VerbsOptionsActivity"
             android:label="@string/title_activity_verbs_options" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.AdminTaskSelectionActivity"
             android:label="@string/title_activity_admin_task_selection" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.verbs.VerbSelectionActivity"
             android:label="@string/title_activity_verb_selection" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.verbs.EditVerbActivity"
             android:label="@string/title_activity_edit_verb" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
-
 </manifest>
