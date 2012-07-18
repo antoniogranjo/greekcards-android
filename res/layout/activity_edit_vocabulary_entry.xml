@@ -105,4 +105,14 @@
         android:onClick="deleteVocabularyEntry"
         />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/spanishText"
+        android:layout_alignBottom="@+id/spanishText"
+        android:layout_toRightOf="@+id/spanishText"
+        android:onClick="recognizeSpanishText"
+        android:text="\?" />
+
 </RelativeLayout>

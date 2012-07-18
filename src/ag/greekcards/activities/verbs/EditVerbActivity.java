@@ -1,11 +1,12 @@
 package ag.greekcards.activities.verbs;
 
 import ag.greekcards.R;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class EditVerbActivity extends Activity {
+public class EditVerbActivity extends GreekCardsActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

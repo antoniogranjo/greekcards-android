@@ -5,10 +5,12 @@ import ag.greekcards.activities.vocabulary.VocabularyTranslationActivity;
 import ag.greekcards.activities.vocabulary.VocabularyTranslationOptionsActivity;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
+import ag.greekcards.model.enums.Language;
 import ag.greekcards.model.enums.TranslationMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 
 public final class NavigationUtils {
 	private NavigationUtils() {}
@@ -31,6 +33,14 @@ public final class NavigationUtils {
 			navigationIntent.putExtras(extras);
 		}
 		currentActivity.startActivityForResult(navigationIntent, requestCode);
+	}
+	
+	public static void startSpeechRecognitionActivity(Activity currentActivity, Language language) {
+		 final Intent speechRecognitionIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		 speechRecognitionIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		 speechRecognitionIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, currentActivity.getString(language.getPromptStringId()));
+		 speechRecognitionIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.getCode());
+		 currentActivity.startActivityForResult(speechRecognitionIntent, language.getRequestCode());
 	}
 	
 	public static void startVocabularyEntryEdit(Activity currentActivity, VocabularyEntry ve) {

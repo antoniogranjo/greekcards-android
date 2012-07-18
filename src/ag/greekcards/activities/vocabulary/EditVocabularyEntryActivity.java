@@ -6,13 +6,16 @@ import ag.greekcards.R;
 import ag.greekcards.activities.base.GreekCardsActivity;
 import ag.greekcards.model.VocabularyCategory;
 import ag.greekcards.model.VocabularyEntry;
+import ag.greekcards.model.enums.Language;
 import ag.greekcards.model.enums.VocabularyEntryEditionMode;
 import ag.greekcards.utils.BundleData;
+import ag.greekcards.utils.RequestCodes;
 import ag.greekcards.utils.ResultCodes;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class EditVocabularyEntryActivity extends GreekCardsActivity {
 	private static final int DIALOG_SAVED_OK = 0;
@@ -38,6 +42,23 @@ public class EditVocabularyEntryActivity extends GreekCardsActivity {
 	private AlertDialog deleteDialog;
 	private AlertDialog deletionOkDialog;
 	
+	public void recognizeSpanishText(View v) {
+		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch (requestCode) {
+		case RequestCodes.GREEK_SPEECH_RECOGNIZING:
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	private final OnClickListener onClickSaveNewVocabularyEntry = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -164,8 +185,10 @@ public class EditVocabularyEntryActivity extends GreekCardsActivity {
 		
 		if (VocabularyEntryEditionMode.ADD.equals(this.editionMode)) {
 			saveButton.setOnClickListener(onClickSaveNewVocabularyEntry);
+			findViewById(R.id.deleteButton).setVisibility(View.INVISIBLE);
 		} else {
 			saveButton.setOnClickListener(onClickSaveEditVocabularyEntry);
+			findViewById(R.id.deleteButton).setVisibility(View.VISIBLE);
 		}
 		
 		cancelButton.setOnClickListener(onClickGoBackToMainMenu);

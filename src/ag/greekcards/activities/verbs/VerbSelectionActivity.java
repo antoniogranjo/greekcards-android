@@ -1,11 +1,11 @@
 package ag.greekcards.activities.verbs;
 
 import ag.greekcards.R;
-import android.app.Activity;
+import ag.greekcards.activities.base.GreekCardsActivity;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class VerbSelectionActivity extends Activity {
+public class VerbSelectionActivity extends GreekCardsActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
